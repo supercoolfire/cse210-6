@@ -63,7 +63,6 @@ class Missile(Actor):
 
     def release(self):
         """Release the missile in a random direction."""
-        self._is_launched = True
         rn = random.uniform(0.9, 1.1)
         vx = random.choice([-MISSILE_VELOCITY * rn, MISSILE_VELOCITY * rn])
         vy = -MISSILE_VELOCITY

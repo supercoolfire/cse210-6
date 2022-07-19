@@ -17,4 +17,4 @@ class ControlShipAction(Action):
             ship.stop_moving()
 
         if self._keyboard_service.is_key_down(SPACE):
-            ship.shoot(cast)
+            ship.launch(cast)

@@ -55,7 +55,7 @@ class Ship(Actor):
         velocity = Point(SHIP_VELOCITY, 0)
         self._body.set_velocity(velocity)
 
-    def shoot(self, cast):
+    def launch(self, cast):
         position = self._body.get_position()
         size = Point(MISSILE_WIDTH, MISSILE_HEIGHT)
         velocity = Point(0, 0)

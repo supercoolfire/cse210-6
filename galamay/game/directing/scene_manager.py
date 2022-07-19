@@ -90,10 +90,11 @@ class SceneManager:
         self._add_level(cast)
         self._add_lives(cast)
         self._add_score(cast)
-        self._add_missile(cast)
+        # self._add_missile(cast) # do not show missile on startup
         self._add_enemys(cast)
         self._add_ship(cast)
         self._add_dialog(cast, ENTER_TO_START)
+        self._add_dialog2(cast, HELP)
 
         self._add_initialize_script(script)
         self._add_load_script(script)
@@ -105,7 +106,7 @@ class SceneManager:
         self._add_release_script(script)
 
     def _prepare_next_level(self, cast, script):
-        self._add_missile(cast)
+        # self._add_missile(cast) # do not show missile on level start
         self._add_enemys(cast)
         self._add_ship(cast)
         self._add_dialog(cast, PREP_TO_LAUNCH)
@@ -127,7 +128,7 @@ class SceneManager:
         self._add_output_script(script)
 
     def _prepare_in_play(self, cast, script):
-        self._activate_missile(cast)
+        # self._activate_missile(cast) # stop launcing missile on startup
         cast.clear_actors(DIALOG_GROUP)
 
         script.clear_actions(INPUT)
@@ -203,6 +204,15 @@ class SceneManager:
         cast.clear_actors(DIALOG_GROUP)
         text = Text(message, FONT_FILE, FONT_SMALL, ALIGN_CENTER)
         position = Point(CENTER_X, CENTER_Y)
+        label = Label(text, position)
+        cast.add_actor(DIALOG_GROUP, label)
+        pass
+
+    # FOR HELP
+    def _add_dialog2(self, cast, message):
+        # cast.clear_actors(DIALOG_GROUP) # prevent PRESS ENTER TO START from hiding
+        text = Text(message, FONT_FILE, FONT_SMALL, ALIGN_CENTER)
+        position = Point(CENTER_X, CENTER_Y + 100)
         label = Label(text, position)
         cast.add_actor(DIALOG_GROUP, label)
 
