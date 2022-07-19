@@ -9,10 +9,11 @@ class LoadAssetsAction(Action):
         self._video_service = video_service
 
     def execute(self, cast, script, callback):
-        # self._audio_service.load_sounds("galamay/assets/sounds")
-        # self._video_service.load_fonts("galamay/assets/fonts")
-        # self._video_service.load_images("galamay/assets/images")
-
-        self._audio_service.load_sounds("assets/sounds")
-        self._video_service.load_fonts("assets/fonts")
-        self._video_service.load_images("assets/images")
+        try:
+            self._audio_service.load_sounds("assets/sounds")
+            self._video_service.load_fonts("assets/fonts")
+            self._video_service.load_images("assets/images")
+        except FileNotFoundError:
+            self._audio_service.load_sounds("galamay/assets/sounds")
+            self._video_service.load_fonts("galamay/assets/fonts")
+            self._video_service.load_images("galamay/assets/images")
