@@ -1,3 +1,4 @@
+import pathlib
 from game.casting.color import Color
 
 # --------------------------------------------------------------------------------------------------
@@ -21,11 +22,15 @@ FIELD_LEFT = 0
 FIELD_RIGHT = SCREEN_WIDTH
 
 # FONT
+# FONT_FILE = "galamay/assets/fonts/zorque.otf"
 FONT_FILE = "assets/fonts/zorque.otf"
 FONT_SMALL = 32
 FONT_LARGE = 48
 
 # SOUND
+# BOUNCE_SOUND = "galamay/assets/sounds/boing.wav"
+# WELCOME_SOUND = "galamay/assets/sounds/start.wav"
+# OVER_SOUND = "galamay/assets/sounds/over.wav"
 BOUNCE_SOUND = "assets/sounds/boing.wav"
 WELCOME_SOUND = "assets/sounds/start.wav"
 OVER_SOUND = "assets/sounds/over.wav"
@@ -55,6 +60,7 @@ IN_PLAY = 3
 GAME_OVER = 4
 
 # LEVELS
+# LEVEL_FILE = "galamay/assets/data/level-{:03}.txt"
 LEVEL_FILE = "assets/data/level-{:03}.txt"
 BASE_LEVELS = 5
 
@@ -91,13 +97,17 @@ SCORE_FORMAT = "SCORE: {}"
 
 # MISSILE
 MISSILE_GROUP = "missiles"
+# MISSILE_IMAGE = "galamay/assets/images/001.png"
+# MISSILE_IMAGES = [f"galamay/assets/images/{n:03}.png" for n in range(0, 4)]
 MISSILE_IMAGES = [f"assets/images/{n:03}.png" for n in range(0, 4)]
 MISSILE_WIDTH = 20
 MISSILE_HEIGHT = 28
+MISSILE_RATE = 6  # for animation
 MISSILE_VELOCITY = 6
 
 # SHIP
 SHIP_GROUP = "ships"
+# SHIP_IMAGES = [f"galamay/assets/images/{n:03}.png" for n in range(100, 103)]
 SHIP_IMAGES = [f"assets/images/{n:03}.png" for n in range(100, 103)]
 SHIP_WIDTH = 70
 SHIP_HEIGHT = 50
@@ -107,6 +117,10 @@ SHIP_VELOCITY = 7
 # ENEMY
 ENEMY_GROUP = "enemys"
 ENEMY_IMAGES = {
+    # "b": [f"galamay/assets/images/{i:03}.png" for i in range(10, 19)],
+    # "g": [f"galamay/assets/images/{i:03}.png" for i in range(20, 29)],
+    # "p": [f"galamay/assets/images/{i:03}.png" for i in range(30, 39)],
+    # "y": [f"galamay/assets/images/{i:03}.png" for i in range(40, 49)]
     "b": [f"assets/images/{i:03}.png" for i in range(10, 19)],
     "g": [f"assets/images/{i:03}.png" for i in range(20, 29)],
     "p": [f"assets/images/{i:03}.png" for i in range(30, 39)],
