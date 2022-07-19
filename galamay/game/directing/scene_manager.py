@@ -151,7 +151,7 @@ class SceneManager:
 
     def _activate_missile(self, cast):
         missile = cast.get_first_actor(MISSILE_GROUP)
-        # missile.release()
+        missile.release()
 
     def _add_missile(self, cast):
         cast.clear_actors(MISSILE_GROUP)
@@ -190,7 +190,7 @@ class SceneManager:
 
                     position = Point(x, y)
                     size = Point(ENEMY_WIDTH, ENEMY_HEIGHT)
-                    velocity = Point(0, 0)
+                    velocity = Point(0, 5)
                     images = ENEMY_IMAGES[color][0:frames]
 
                     body = Body(position, size, velocity)
@@ -277,8 +277,6 @@ class SceneManager:
         script.clear_actions(UPDATE)
         script.add_action(UPDATE, self.MOVE_MISSILE_ACTION)
         script.add_action(UPDATE, self.MOVE_SHIP_ACTION)
-        script.add_action(UPDATE, self.COLLIDE_BORDERS_ACTION)
         script.add_action(UPDATE, self.COLLIDE_ENEMYS_ACTION)
-        script.add_action(UPDATE, self.COLLIDE_SHIP_ACTION)
         script.add_action(UPDATE, self.MOVE_SHIP_ACTION)
         script.add_action(UPDATE, self.CHECK_OVER_ACTION)

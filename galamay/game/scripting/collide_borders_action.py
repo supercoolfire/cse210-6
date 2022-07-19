@@ -18,7 +18,6 @@ class CollideBordersAction(Action):
         bounce_sound = Sound(BOUNCE_SOUND)
         over_sound = Sound(OVER_SOUND)
 
-        # this will be replaced by deleting instance of missile
         if x < FIELD_LEFT:
             missile.bounce_x()
             self._audio_service.play_sound(bounce_sound)

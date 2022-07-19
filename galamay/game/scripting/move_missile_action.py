@@ -1,5 +1,4 @@
 from constants import *
-from game.casting.point import Point
 from game.scripting.action import Action
 
 
@@ -9,9 +8,10 @@ class MoveMissileAction(Action):
         pass
 
     def execute(self, cast, script, callback):
-        missile = cast.get_first_actor(MISSILE_GROUP)
-        body = missile.get_body()
-        position = body.get_position()
-        velocity = body.get_velocity()
-        position = position.add(velocity)
-        body.set_position(position)
+        missiles = cast.get_actors(MISSILE_GROUP)
+        for missile in missiles:
+            body = missile.get_body()
+            position = body.get_position()
+            velocity = body.get_velocity()
+            position = position.add(velocity)
+            body.set_position(position)

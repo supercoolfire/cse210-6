@@ -1,3 +1,4 @@
+from ctypes.wintypes import POINT
 from game.casting.actor import Actor
 
 
@@ -16,6 +17,7 @@ class Enemy(Actor):
         self._body = body
         self._animation = animation
         self._points = points
+        self._set_velocity = POINT(0, 5)
 
     def get_animation(self):
         """Gets the enemy's image.
@@ -40,3 +42,7 @@ class Enemy(Actor):
             A number representing the enemy's points.
         """
         return self._points
+
+    def enemy_velocity(self):
+
+        return self._set_velocity

@@ -18,7 +18,6 @@ class Missile(Actor):
         super().__init__(debug)
         self._body = body
         self._animation = animation
-        self._is_launched = False
 
     def get_animation(self):
         """Gets the bat's animation.
@@ -28,6 +27,24 @@ class Missile(Actor):
         """
         return self._animation
 
+    def bounce_x(self):
+        """Bounces the missile in the x direction."""
+        velocity = self._body.get_velocity()
+        rn = random.uniform(0.9, 1.1)
+        vx = velocity.get_x() * rn * -1
+        vy = velocity.get_y()
+        velocity = Point(vx, vy)
+        self._body.set_velocity(velocity)
+
+    def bounce_y(self):
+        """Bounces the missile in the y direction."""
+        velocity = self._body.get_velocity()
+        rn = random.uniform(0.9, 1.1)
+        vx = velocity.get_x()
+        vy = velocity.get_y() * rn * -1
+        velocity = Point(vx, vy)
+        self._body.set_velocity(velocity)
+
     def get_body(self):
         """Gets the missile's body.
 
@@ -36,30 +53,13 @@ class Missile(Actor):
         """
         return self._body
 
-    def move_next(self):
-        """Moves the missle using its velocity."""
-        position = self._body.get_position()
-        velocity = self._body.get_velocity()
-        new_position = position.add(velocity)
-        self._body.set_position(new_position)
+    # def get_image(self):
+    #     """Gets the missile's image.
 
-    def swing_left(self):
-        if self._is_launched == False:
-            """Steers the bat to the left."""
-            velocity = Point(-MISSILE_VELOCITY, 0)
-            self._body.set_velocity(velocity)
-
-    def swing_right(self):
-        if self._is_launched == False:
-            """Steers the bat to the right."""
-            velocity = Point(MISSILE_VELOCITY, 0)
-            self._body.set_velocity(velocity)
-
-    def stop_moving(self):
-        if self._is_launched == False:
-            """Stops the ship from moving."""
-            velocity = Point(0, 0)
-            self._body.set_velocity(velocity)
+    #     Returns:
+    #         An instance of Image.
+    #     """
+    #     return self._image
 
     def release(self):
         """Release the missile in a random direction."""
