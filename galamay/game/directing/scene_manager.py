@@ -106,6 +106,7 @@ class SceneManager:
         self._add_release_script(script)
 
     def _prepare_next_level(self, cast, script):
+        cast.clear_actors(MISSILE_GROUP)  # decommision ordnance every level
         # self._add_missile(cast) # do not show missile on level start
         self._add_enemys(cast)
         self._add_ship(cast)
@@ -287,6 +288,7 @@ class SceneManager:
         script.clear_actions(UPDATE)
         script.add_action(UPDATE, self.MOVE_MISSILE_ACTION)
         script.add_action(UPDATE, self.MOVE_SHIP_ACTION)
+        script.add_action(UPDATE, self.COLLIDE_BORDERS_ACTION)
         script.add_action(UPDATE, self.COLLIDE_ENEMYS_ACTION)
         script.add_action(UPDATE, self.MOVE_SHIP_ACTION)
         script.add_action(UPDATE, self.CHECK_OVER_ACTION)
