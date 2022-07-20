@@ -80,6 +80,10 @@ class SceneManager:
             self._prepare_in_play(cast, script)
         elif scene == GAME_OVER:
             self._prepare_game_over(cast, script)
+        elif scene == HELP:
+            self._prepare_help(cast, script)
+        elif scene == PAUSED:
+            self._prepare_pause(cast, script)
 
     # ----------------------------------------------------------------------------------------------
     # scene methods
@@ -149,10 +153,20 @@ class SceneManager:
 
     def _prepare_help(self, cast, script):
         cast.clear_actors(DIALOG_GROUP)
+        self._add_dialog(cast, HELP_MESSAGE)
 
         script.clear_actions(INPUT)
-        script.add_action(INPUT, self.CONTROL_SHIP_ACTION)
-        self._add_update_script(script)
+        script.add_action(INPUT, ChangeSceneAction(
+            self.KEYBOARD_SERVICE, NEXT_LEVEL))
+        self._add_output_script(script)
+
+    def _prepare_pause(self, cast, script):
+        cast.clear_actors(DIALOG_GROUP)
+        self._add_dialog(cast, PAUSED_MESSAGE)
+
+        script.clear_actions(INPUT)
+        script.add_action(INPUT, ChangeSceneAction(
+            self.KEYBOARD_SERVICE, NEXT_LEVEL))
         self._add_output_script(script)
 
     # ----------------------------------------------------------------------------------------------
