@@ -1,4 +1,7 @@
-b1, b1, b1, b1, b1, b1, b1, b1, b1, b1, b1, b1, b1
-b1, g9, b1, g9, b1, g9, b1, g9, b1, g9, b1, g9, b1
-g9, b1, g9, b1, g9, b1, g9, b1, g9, b1, g9, b1, g9
-b1, g9, b1, g9, b1, g9, b1, g9, b1, g9, b1, g9, b1
+g9, b9, b9, p5, p5, p5, b9, b9, y5, y5, y5, b9, g9
+g9, b9, p5, b9, b9, b9, b9, y5, b9, b9, b9, b9, g9
+g9, b9, p5, b9, b9, b9, b9, y5, b9, b9, b9, b9, g9
+g9, b9, p5, b9, p5, p5, b9, y5, b9, y5, y5, b9, g9
+g9, b9, p5, b9, b9, p5, b9, y5, b9, b9, y5, b9, g9
+g9, b9, p5, b9, b9, p5, b9, y5, b9, b9, y5, b9, g9
+g9, b9, b9, p5, p5, p5, b9, b9, y5, y5, y5, b9, g9

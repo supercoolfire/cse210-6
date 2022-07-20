@@ -16,5 +16,6 @@ class ControlShipAction(Action):
         else:
             ship.stop_moving()
 
+        # 1 launch per key press
         if self._keyboard_service.is_key_pressed(SPACE):
             ship.launch(cast)

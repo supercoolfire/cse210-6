@@ -4,20 +4,20 @@ import pyray
 from constants import *
 from game.casting.color import Color
 from game.casting.text import Text
-from game.services.video_service import VideoService 
+from game.services.video_service import VideoService
 
 
 class RaylibVideoService(VideoService):
     """ A Raylib implementation of VideoService."""
 
-    def __init__(self, title = "", width = 640, height = 480, color = BLACK):
+    def __init__(self, title="", width=640, height=480, color=BLACK):
         self._title = title
         self._width = width
         self._height = height
         self._color = color
         self._fonts = {}
         self._textures = {}
-        
+
     def clear_buffer(self):
         raylib_color = self._to_raylib_color(self._color)
         pyray.begin_drawing()
@@ -33,10 +33,10 @@ class RaylibVideoService(VideoService):
         raylib_position = pyray.Vector2(x, y)
         scale = image.get_scale()
         rotation = image.get_rotation()
-        tint = self._to_raylib_color(Color(255,255,255)) 
+        tint = self._to_raylib_color(Color(255, 255, 255))
         pyray.draw_texture_ex(texture, raylib_position, rotation, scale, tint)
-         
-    def draw_rectangle(self, rectangle, color, filled = False):
+
+    def draw_rectangle(self, rectangle, color, filled=False):
         x = int(rectangle.get_position().get_x())
         y = int(rectangle.get_position().get_y())
         width = int(rectangle.get_size().get_x())
@@ -60,19 +60,19 @@ class RaylibVideoService(VideoService):
 
         font = self._fonts[filepath]
         text_image = pyray.image_text_ex(font, value, size, spacing, tint)
-        
+
         x = position.get_x()
         y = position.get_y()
 
         if alignment == ALIGN_CENTER:
-            x = (position.get_x() - text_image.width / 2) 
+            x = (position.get_x() - text_image.width / 2)
             # y = (position.get_y() - text_image.height / 2)
         elif alignment == ALIGN_RIGHT:
-            x = (position.get_x() - text_image.width) 
+            x = (position.get_x() - text_image.width)
 
         raylib_position = pyray.Vector2(x, y)
         pyray.draw_text_ex(font, value, raylib_position, size, spacing, tint)
-        
+
     def flush_buffer(self):
         pyray.end_drawing()
 
@@ -91,7 +91,8 @@ class RaylibVideoService(VideoService):
                 self._fonts[filepath] = font
 
     def load_images(self, directory):
-        filepaths = self._get_filepaths(directory, [".png", ".gif", ".jpg", ".jpeg", ".bmp"])
+        filepaths = self._get_filepaths(
+            directory, [".png", ".gif", ".jpg", ".jpeg", ".bmp"])
         for filepath in filepaths:
             if filepath not in self._textures.keys():
                 texture = pyray.load_texture(filepath)
@@ -99,7 +100,7 @@ class RaylibVideoService(VideoService):
 
     def release(self):
         pyray.close_window()
-        
+
     def unload_fonts(self):
         for font in self._fonts.values():
             pyray.unload_font(font)

@@ -147,6 +147,14 @@ class SceneManager:
         script.clear_actions(UPDATE)
         self._add_output_script(script)
 
+    def _prepare_help(self, cast, script):
+        cast.clear_actors(DIALOG_GROUP)
+
+        script.clear_actions(INPUT)
+        script.add_action(INPUT, self.CONTROL_SHIP_ACTION)
+        self._add_update_script(script)
+        self._add_output_script(script)
+
     # ----------------------------------------------------------------------------------------------
     # casting methods
     # ----------------------------------------------------------------------------------------------
@@ -169,37 +177,41 @@ class SceneManager:
         cast.add_actor(MISSILE_GROUP, missile)
 
     def _add_enemys(self, cast):
-        cast.clear_actors(ENEMY_GROUP)
+        try:
+            cast.clear_actors(ENEMY_GROUP)
 
-        stats = cast.get_first_actor(STATS_GROUP)
-        level = stats.get_level() % BASE_LEVELS
-        filename = LEVEL_FILE.format(level)
+            stats = cast.get_first_actor(STATS_GROUP)
+            level = stats.get_level() % BASE_LEVELS
+            filename = LEVEL_FILE.format(level)
+            with open(filename, 'r') as file:
+                reader = csv.reader(file, skipinitialspace=True)
 
-        with open(filename, 'r') as file:
-            reader = csv.reader(file, skipinitialspace=True)
+                for r, row in enumerate(reader):
+                    for c, column in enumerate(row):
 
-            for r, row in enumerate(reader):
-                for c, column in enumerate(row):
+                        x = FIELD_LEFT + c * ENEMY_WIDTH
+                        y = FIELD_TOP + r * ENEMY_HEIGHT
+                        color = column[0]
+                        frames = int(column[1])
+                        points = ENEMY_POINTS
 
-                    x = FIELD_LEFT + c * ENEMY_WIDTH
-                    y = FIELD_TOP + r * ENEMY_HEIGHT
-                    color = column[0]
-                    frames = int(column[1])
-                    points = ENEMY_POINTS
+                        if frames == 1:
+                            points *= 2
 
-                    if frames == 1:
-                        points *= 2
+                        position = Point(x, y)
+                        size = Point(ENEMY_WIDTH, ENEMY_HEIGHT)
+                        velocity = Point(0, 5)
+                        images = ENEMY_IMAGES[color][0:frames]
 
-                    position = Point(x, y)
-                    size = Point(ENEMY_WIDTH, ENEMY_HEIGHT)
-                    velocity = Point(0, 5)
-                    images = ENEMY_IMAGES[color][0:frames]
+                        body = Body(position, size, velocity)
+                        animation = Animation(images, ENEMY_RATE, ENEMY_DELAY)
 
-                    body = Body(position, size, velocity)
-                    animation = Animation(images, ENEMY_RATE, ENEMY_DELAY)
-
-                    enemy = Enemy(body, animation, points)
-                    cast.add_actor(ENEMY_GROUP, enemy)
+                        enemy = Enemy(body, animation, points)
+                        cast.add_actor(ENEMY_GROUP, enemy)
+        except FileNotFoundError as not_found_err:
+            # do not close the window, just show the error
+            print(not_found_err)
+            pass
 
     def _add_dialog(self, cast, message):
         cast.clear_actors(DIALOG_GROUP)
@@ -213,7 +225,7 @@ class SceneManager:
     def _add_dialog2(self, cast, message):
         # cast.clear_actors(DIALOG_GROUP) # prevent PRESS ENTER TO START from hiding
         text = Text(message, FONT_FILE, FONT_SMALL, ALIGN_CENTER)
-        position = Point(CENTER_X, CENTER_Y + 100)
+        position = Point(CENTER_X, CENTER_Y + 80)
         label = Label(text, position)
         cast.add_actor(DIALOG_GROUP, label)
 
@@ -290,5 +302,5 @@ class SceneManager:
         script.add_action(UPDATE, self.MOVE_SHIP_ACTION)
         script.add_action(UPDATE, self.COLLIDE_BORDERS_ACTION)
         script.add_action(UPDATE, self.COLLIDE_ENEMYS_ACTION)
-        script.add_action(UPDATE, self.MOVE_SHIP_ACTION)
+        # script.add_action(UPDATE, self.MOVE_SHIP_ACTION)
         script.add_action(UPDATE, self.CHECK_OVER_ACTION)
